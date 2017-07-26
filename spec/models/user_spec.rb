@@ -1,8 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  let(:user) { FactoryGirl.create(:user) }
+
   it 'has a valid factory' do
-    expect(FactoryGirl.build(:user)).to be_valid
+    expect(user).to be_valid
   end
 
   describe '#confirmed' do
@@ -17,7 +19,6 @@ RSpec.describe User, type: :model do
 
   describe '#inventories' do
     it 'returns inventories it belongs to' do
-      user = FactoryGirl.create(:user)
       inventories = FactoryGirl.create_list(:inventory, 2, users: [user])
       expect(user.inventories).to eq(inventories)
     end
@@ -25,7 +26,6 @@ RSpec.describe User, type: :model do
 
   describe '#organizations' do
     it 'returns organizations it belongs to' do
-      user = FactoryGirl.create(:user)
       orgs = FactoryGirl.create_list(:organization, 2, users: [user])
       expect(user.organizations).to eq(orgs)
     end
@@ -33,9 +33,15 @@ RSpec.describe User, type: :model do
 
   describe '#owned_organizations' do
     it 'returns organizations it owns' do
-      user = FactoryGirl.create(:user)
       orgs = FactoryGirl.create_list(:organization, 2, owner: user)
       expect(user.owned_organizations).to eq(orgs)
+    end
+  end
+
+  describe '#owned_inventories' do
+    it 'returns inventories it owns' do
+      inventories = FactoryGirl.create_list(:inventory, 2, owner: user)
+      expect(user.owned_inventories).to match_array(inventories.sort)
     end
   end
 end

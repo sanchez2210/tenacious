@@ -4,4 +4,5 @@ class Inventory < ApplicationRecord
 
   has_many :inventory_users
   has_many :users, through: :inventory_users
+  belongs_to :owner, polymorphic: true
 end

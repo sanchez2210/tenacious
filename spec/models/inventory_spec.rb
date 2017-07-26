@@ -54,4 +54,22 @@ RSpec.describe Inventory, type: :model do
       expect(inventory.users).to eq users
     end
   end
+
+  describe '#owner' do
+    it 'is invalid when nil' do
+      expect(FactoryGirl.build(:inventory, owner: nil)).not_to be_valid
+    end
+
+    it 'can be a user' do
+      user = FactoryGirl.create(:user)
+      inventory = FactoryGirl.create(:inventory, owner: user)
+      expect(inventory.owner_type).to eq('User')
+    end
+
+    it 'can be an organization' do
+      organization = FactoryGirl.create(:organization)
+      inventory = FactoryGirl.create(:inventory, owner: organization)
+      expect(inventory.owner_type).to eq('Organization')
+    end
+  end
 end
