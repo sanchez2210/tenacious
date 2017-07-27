@@ -1,1 +1,5 @@
 <h1><%= @organization.name %></h1>
+
+<% if @organization.owner == current_user %>
+  <%= link_to 'Create an Inventory', new_organization_inventory_path(@organization) %>
+<% end %>
