@@ -88,6 +88,10 @@ RSpec.feature 'Creating an inventory' do
       click_link 'Create an Inventory'
     end
 
+    scenario 'shows that the inventory will be created under the user' do
+      expect(page).to have_content('Create an Inventory for yourself')
+    end
+
     include_examples 'a successful inventory creation', 'org_owner'
 
     include_examples 'a failed inventory creation'
@@ -100,6 +104,14 @@ RSpec.feature 'Creating an inventory' do
       click_link 'Dashboard'
       click_link organization.name
       click_link 'Create an Inventory'
+    end
+
+    scenario 'shows that the inventory will be created under the organization' do
+      expect(page).to have_content("Create an Inventory for #{organization.name}")
+    end
+
+    scenario 'has a link to the organization' do
+      expect(page).to have_link(organization.name, href: organization_path(organization))
     end
 
     include_examples 'a successful inventory creation', 'organization'

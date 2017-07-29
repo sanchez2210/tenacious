@@ -12,7 +12,7 @@ RSpec.feature 'Users signing in' do
     before do
       fill_in 'Email', with: user.email
       fill_in 'Password', with: user.password
-      click_button 'Log in'
+      click_button 'Sign in'
     end
 
     scenario 'succeeds and restricts access to the sign in route' do
@@ -41,7 +41,7 @@ RSpec.feature 'Users signing in' do
     before do
       fill_in 'Email', with: 'wrong_email@example.com'
       fill_in 'Password', with: 'wrong_password'
-      click_button 'Log in'
+      click_button 'Sign in'
     end
 
     include_examples 'a failed sign in attempt'
@@ -49,7 +49,7 @@ RSpec.feature 'Users signing in' do
 
   feature 'with no credentials' do
     before do
-      click_button 'Log in'
+      click_button 'Sign in'
     end
 
     include_examples 'a failed sign in attempt'

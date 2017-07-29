@@ -1,0 +1,27 @@
+@import 'stylesheets/variables.scss';
+
+.field {
+  width: 100%;
+  max-width: 400px;
+  margin: 20px 0;
+
+  input, textarea {
+    width: 100%;
+    padding: 5px 0;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid black;
+  }
+
+  input[type='checkbox'] {
+    width: auto;
+  }
+}
+
+.field_with_errors {
+  color: $error-color;
+
+  input {
+    border-bottom: 1px solid $error-color;
+  }
+}
