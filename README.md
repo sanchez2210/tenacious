@@ -1,24 +1,30 @@
-# README
+# Tenacious
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[![Build Status](https://travis-ci.org/emerald-rubies/tenacious.svg?branch=master)](https://travis-ci.org/emerald-rubies/tenacious)
 
-Things you may want to cover:
+A tenacious inventory system.
 
-* Ruby version
+## Dependencies
 
-* System dependencies
+- Ruby 2.4.1
+- psql
+- node
+- yarn
 
-* Configuration
+## Setup
 
-* Database creation
+### First time setup
 
-* Database initialization
+Simply run `bin/setup` after all dependencies have been met.
 
-* How to run the test suite
+You can also run `bin/setup` to reset your instance.
 
-* Services (job queues, cache servers, search engines, etc.)
+### Running the Server
 
-* Deployment instructions
+`bundle exec rails s` and `bin/webkpack-dev-server` in seperate terminal panes
 
-* ...
+### Running the Tests
+
+`bin/rake` or `bundle exec rspec`
+
+Travis also tests rubocop which is required for PR acceptance, you can run that with `bundle exec rubocop`.
