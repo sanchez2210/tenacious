@@ -3,8 +3,20 @@ require 'features/feature_helpers'
 include FeatureHelpers
 
 RSpec.feature 'Showing an organization' do
+  let(:owner) { FactoryGirl.create(:user, :confirmed) }
   let(:member) { FactoryGirl.create(:user, :confirmed) }
-  let(:organization) { FactoryGirl.create(:organization, users: [member]) }
+  let(:organization) { FactoryGirl.create(:organization, owner: owner, users: [owner, member]) }
+  let!(:inventory) { FactoryGirl.create(:inventory, owner: organization) }
+
+  shared_examples 'has organization information' do
+    scenario 'shows the name of the organization' do
+      expect(page).to have_content(organization.name)
+    end
+
+    scenario 'shows inventories the organization owns' do
+      expect(page).to have_link(inventory.name, href: organization_inventory_path(organization, inventory))
+    end
+  end
 
   feature 'as a member of the organization' do
     before do
@@ -12,8 +24,23 @@ RSpec.feature 'Showing an organization' do
       visit organization_path(organization)
     end
 
-    scenario 'shows the name of the organization' do
-      expect(page).to have_content(organization.name)
+    include_examples 'has organization information'
+
+    scenario "doesn't show a link to create a new inventory" do
+      expect(page).not_to have_link('Create an Inventory')
+    end
+  end
+
+  feature 'as the owner of the organization' do
+    before do
+      login_as(owner)
+      visit organization_path(organization)
+    end
+
+    include_examples 'has organization information'
+
+    scenario 'shows a link to create a new inventory' do
+      expect(page).to have_link('Create an Inventory')
     end
   end
 

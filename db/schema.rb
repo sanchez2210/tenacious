@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170713185103) do
+ActiveRecord::Schema.define(version: 20170726083607) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,9 @@ ActiveRecord::Schema.define(version: 20170713185103) do
     t.string "description", limit: 255
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "owner_id", null: false
+    t.string "owner_type", null: false
+    t.index ["owner_id", "owner_type"], name: "index_inventories_on_owner_id_and_owner_type"
   end
 
   create_table "inventory_users", force: :cascade do |t|

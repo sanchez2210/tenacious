@@ -6,5 +6,6 @@ class PagesController < ApplicationController
 
   def dashboard
     @organizations = current_user.organizations
+    @inventories = current_user.inventories
   end
 end

@@ -1,1 +1,19 @@
 <h1><%= @organization.name %></h1>
+
+<div class='card'>
+  <h4>Inventories</h4>
+
+  <% unless @inventories.empty? %>
+    <ul>
+      <% @inventories.each do |inventory| %>
+        <li>
+          <%= link_to inventory.name, organization_inventory_path(inventory.owner, inventory) %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <% if @organization.owner == current_user %>
+    <%= link_to 'Create an Inventory', new_organization_inventory_path(@organization) %>
+  <% end %>
+</div>

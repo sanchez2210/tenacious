@@ -1,6 +1,12 @@
+<h2>Create an Organization</h2>
+
 <%= render_errors_for(@organization) %>
 
 <%= form_for @organization do |f| %>
-  <%= f.text_field :name %>
+  <div class='field'>
+    <%= f.label :name %>
+    <%= f.text_field :name, autofocus: true %>
+  </div>
+
   <%= f.submit 'Create Organization' %>
 <% end %>
