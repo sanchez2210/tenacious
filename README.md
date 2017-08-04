@@ -21,7 +21,7 @@ You can also run `bin/setup` to reset your instance.
 
 ### Running the Server
 
-`bundle exec rails s` and `bin/webkpack-dev-server` in seperate terminal panes
+`bundle exec rails s` and `bin/webpack-dev-server` in seperate terminal panes
 
 ### Running the Tests
 
