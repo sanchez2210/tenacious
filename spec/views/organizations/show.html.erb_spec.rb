@@ -18,7 +18,7 @@ RSpec.describe 'organizations/show', type: :view do
     end
 
     it "displays links to the organization's inventories" do
-      inventories.each do |inventory|
+      organization.owned_inventories.each do |inventory|
         expect(rendered).to have_link(inventory.name)
       end
     end
