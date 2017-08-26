@@ -21,11 +21,6 @@ RSpec.describe OrganizationsController do
         subject.show
         expect(subject.view_assigns['organization']).to eq organization
       end
-
-      it 'assigns @inventories' do
-        subject.show
-        expect(subject.view_assigns['inventories']).to match_array(inventories)
-      end
     end
 
     context 'when user is not a part of the organization' do

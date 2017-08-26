@@ -3,12 +3,11 @@ require 'rails_helper'
 RSpec.describe 'organizations/show', type: :view do
   let(:owner) { FactoryGirl.build_stubbed(:user) }
   let(:member) { FactoryGirl.build_stubbed(:user) }
-  let(:organization) { FactoryGirl.build_stubbed(:organization, owner: owner, users: [owner, member]) }
-  let(:inventories) { FactoryGirl.build_stubbed_list(:inventory, 2, owner: organization) }
+  let(:inventories) { FactoryGirl.build_stubbed_list(:inventory, 2) }
+  let(:organization) { FactoryGirl.build_stubbed(:organization, owner: owner, users: [owner, member], owned_inventories: inventories) }
 
   before do
     assign(:organization, organization)
-    assign(:inventories, inventories)
     allow(view).to receive(:current_user).and_return(member)
     render
   end
@@ -19,7 +18,7 @@ RSpec.describe 'organizations/show', type: :view do
     end
 
     it "displays links to the organization's inventories" do
-      inventories.each do |inventory|
+      organization.owned_inventories.each do |inventory|
         expect(rendered).to have_link(inventory.name)
       end
     end
