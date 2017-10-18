@@ -4,15 +4,13 @@ class InventoryUsersController < ApplicationController
   before_action :load_pending_inventory, only: [:confirm_invitation]
 
   def new
-    unless current_user.inventory_access?('admin', @inventory)
-      flash[:alert] = 'You must be an administrator of this inventory to view this page'
-      redirect_to [@inventory.owner, @inventory]
-    end
+    authorize @inventory
     @users = User.search(params[:query])
     @inventory_user = InventoryUser.new
   end
 
   def create
+    authorize @inventory
     @inventory_user = InventoryUser.new(inventory_user_params)
     @inventory_user.user_id = params[:user_id]
     @inventory_user.inventory_id = @inventory.id
