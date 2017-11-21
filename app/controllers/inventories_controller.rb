@@ -5,12 +5,13 @@ class InventoriesController < ApplicationController
   before_action :load_inventory, only: [:show]
 
   def new
+    authorize Inventory
     @inventory = Inventory.new
   end
 
   def create
-    @inventory = Inventory.new(inventory_params)
-    @inventory.owner = @owner
+    authorize Inventory
+    @inventory = Inventory.new(inventory_params.merge(owner: @owner))
     if @inventory.save
       inventory_user = InventoryUser.new(user: current_user, inventory: @inventory, user_role: 'admin', confirmed_at: Time.now)
       inventory_user.save
@@ -21,7 +22,9 @@ class InventoriesController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    authorize @inventory
+  end
 
   private
 

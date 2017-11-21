@@ -8,4 +8,12 @@ class InventoryUser < ApplicationRecord
   belongs_to :inventory
 
   enum user_role: [:read, :write, :admin]
+
+  def role_level
+    {
+      read: 1,
+      write: 2,
+      admin: 3
+    }[user_role.to_sym]
+  end
 end

@@ -32,4 +32,8 @@ class User < ApplicationRecord
     return if permission.nil? || InventoryUser.user_roles[permission] < InventoryUser.user_roles[user_role]
     true
   end
+
+  def inventory_user_for(inventory)
+    inventory_users.confirmed.where(inventory: inventory).first
+  end
 end

@@ -64,22 +64,6 @@ RSpec.feature 'Inviting a user to an inventory' do
     end
   end
 
-  feature 'as a member of the inventory' do
-    before do
-      FactoryGirl.create(:inventory_user, :confirmed, user: user, inventory: inventory)
-      login_as(user)
-      visit new_inventory_user_path(inventory)
-    end
-
-    scenario 'will redirect back to the inventory path' do
-      expect(current_path).to eq(user_inventory_path(user, inventory))
-    end
-
-    scenario 'shows a message saying why the member was redirected' do
-      expect(page).to have_content('You must be an administrator of this inventory to view this page')
-    end
-  end
-
   feature 'as a logged in user' do
     scenario 'responds with RecordNotFound' do
       login_as(user)
