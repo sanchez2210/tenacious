@@ -89,7 +89,6 @@ RSpec.describe Inventory, type: :model do
     end
   end
 
-
   describe 'user queries' do
     before(:all) do
       @inventory = FactoryGirl.create(:inventory)
