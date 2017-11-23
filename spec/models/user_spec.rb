@@ -127,6 +127,19 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe 'inventory_user associations' do
+    [
+      :inventory_users,
+      :confirmed_inventory_users,
+      :pending_inventory_users
+    ].each do |association|
+      it "has many #{association}" do
+        r = described_class.reflect_on_association association
+        expect(r.macro).to eq(:has_many)
+      end
+    end
+  end
+
   describe 'inventory queries' do
     before(:all) do
       @user = FactoryGirl.create(:user)
