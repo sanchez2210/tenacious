@@ -138,8 +138,14 @@ RSpec.describe User, type: :model do
     end
 
     describe '#inventories' do
+      it 'returns all inventories' do
+        expect(@user.inventories).to match_array(@confirmed_inventories + @pending_inventories)
+      end
+    end
+
+    describe '#confirmed_inventories' do
       it 'returns inventories which have been confirmed' do
-        expect(@user.inventories).to match_array(@confirmed_inventories)
+        expect(@user.confirmed_inventories).to match_array(@confirmed_inventories)
       end
     end
 
